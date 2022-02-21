@@ -38,3 +38,7 @@ variable name {
   
 }
 
+#Varable defined in tfvars example
+variable "test" {
+  type = string
+}
