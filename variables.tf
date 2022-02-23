@@ -1,5 +1,11 @@
-#resource groups
+#Variable Type Definaition File - To just define them, information is stored in variables.auto.tfvars.
 
+
+
+#RESOURCE GROUPS
+
+
+#Primary Region Name and Location
 variable "resource_group_name_primary" {
   type = string
 }
@@ -8,6 +14,9 @@ variable "location_primary" {
   type = string
 }
 
+
+
+#Secondary Region Name and Location
 variable "resource_group_name_secondary" {
   type = string
 }
@@ -16,6 +25,9 @@ variable "location_secondary" {
   type = string
 }
 
+
+
+#TrafficManager Region Name and Location
 variable "resource_group_name_tm" {
   type = string
 }
@@ -24,86 +36,105 @@ variable "location_tm" {
   type = string
 }
 
-#virtual networks
 
+
+
+#VIRTUAL NETWORKS
+
+
+#Priamary Vnet
 variable "network_name_primary" {
   type = string
 }
-#add variable network address space
+#Secondary Vnet
 variable "network_name_secondary" {
   type = string
 }
-#add variable network address space
+#Traffic Management Vnet
 variable "network_name_tm" {
   type = string
 }
-#add variable network address space
 
-#primary vnet subnets
 
+
+#SUBNETS
+
+
+
+#PRIMARY Subnets
+
+#Management Subnet -Primary
 variable "managementsubnet1" {
   type = string
 }
-#add variable subnet space
 
+#Web Subnet -Primary
 variable "websubnet1" {
   type = string
 }
-#add variable subnet space
 
+#Buisness Subnet -Primary
 variable "businesssubnet1" {
   type = string
 }
-#add variable subnet space
 
+#Database Subnet -Primary
 variable "datasubnet1" {
   type = string
 }
-#add variable subnet space
 
+#Active Directory Subnet -Primary
 variable "ADsubnet1" {
   type = string
 }
-#add variable subnet space
 
-#secondary vnet subnets
 
+
+#SECONDARY Subnets
+
+#Management Subnet -Secondary
 variable "managementsubnet2" {
   type = string
 }
-#add variable subnet space
 
+#Web Subnet -Secondary
 variable "websubnet2" {
   type = string
 }
-#add variable subnet space
-
+#Buisness Subnet -Secondary
 variable "businesssubnet2" {
   type = string
 }
-#add variable subnet space
 
+#Database Subnet -Secondary
 variable "datasubnet2" {
   type = string
 }
-#add variable subnet space
 
+#Active Directory Subnet -Secondary
 variable "ADsubnet2" {
   type = string
 }
-#add variable subnet space
 
-#traffic manager vnet subnet
+
+
+#OTHER SUBNETS
+
+#Traffic Manager Subnet
 variable "trafficmanagersubnet" {
   type = string
 }
-#add variable subnet space
 
-#virtual network peering
+
+
+#PEERING
+
+#Primary to Secondary Peering
 variable "primarytosecondary" {
   type = string
 }
 
+#Secondary to Primary Peering
 variable "secondarytoprimary" {
   type = string
 }

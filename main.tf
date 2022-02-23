@@ -1,4 +1,7 @@
-#resource groups
+#Main Terraform File
+
+#RESOURCE GROUPS
+
 resource "azurerm_resource_group" "primary" {
   name     = var.resource_group_name_primary
   location = var.location_primary
@@ -14,7 +17,8 @@ resource "azurerm_resource_group" "trafficmanager" {
   location = var.location_tm
 }
 
-#virtual networks
+#VIRTUAL NETWORKS
+
 resource "azurerm_virtual_network" "primarynet" {
   name                = var.network_name_primary
   address_space       = ["10.0.0.0/16"]
@@ -36,7 +40,10 @@ resource "azurerm_virtual_network" "trafficmanager" {
   resource_group_name = azurerm_resource_group.trafficmanager.name
 }
 
-#primary vnet subnets
+#VNETS
+#PRIMARY VNETS
+
+
 #primary vnet subnet- management
 resource "azurerm_subnet" "managementsubnet1" {
   name                 = var.managementsubnet1
@@ -77,7 +84,11 @@ resource "azurerm_subnet" "ADsubnet1" {
   address_prefixes     = ["10.0.5.0/24"]
 }
 
-#secondary vnet subnets
+
+
+#SECONDARY VNETS
+
+
 #secondary vnet subnet- management
 resource "azurerm_subnet" "managementsubnet2" {
   name                 = var.managementsubnet2
@@ -118,7 +129,11 @@ resource "azurerm_subnet" "ADsubnet2" {
   address_prefixes     = ["10.1.5.0/24"]
 }
 
-#traffic manager vnet subnet
+
+#OTHER VNET
+
+
+#Traffic Manager Subnet
 resource "azurerm_subnet" "trafficmanagersubnet" {
   name                 = var.trafficmanagersubnet
   resource_group_name  = azurerm_resource_group.trafficmanager.name
@@ -126,7 +141,11 @@ resource "azurerm_subnet" "trafficmanagersubnet" {
   address_prefixes     = ["10.2.1.0/24"]
 }
 
-#virtual network peering
+
+#PEERING
+
+
+#Vnet Peering- Primary to Secondary
 resource "azurerm_virtual_network_peering" "primarytosecondary" {
   name                      = var.primarytosecondary
   resource_group_name       = azurerm_resource_group.primary.name
@@ -134,6 +153,7 @@ resource "azurerm_virtual_network_peering" "primarytosecondary" {
   remote_virtual_network_id = azurerm_virtual_network.secondarynet.id
 }
 
+#Vnet Peering- Secondary to Primary
 resource "azurerm_virtual_network_peering" "secondarytoprimary" {
   name                      = var.secondarytoprimary
   resource_group_name       = azurerm_resource_group.secondary.name
@@ -142,7 +162,7 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 }
 
 
-#Working on Virst Vnet Managment With bastion, needs work
+#BASTION HOST
 
 
 #public ip
