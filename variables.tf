@@ -1,44 +1,109 @@
-variable resource_group_name {
-  default     = "Pro_2_RG"
-  
+#resource groups
+
+variable "resource_group_name_primary" {
+  type = string
 }
 
-variable network_name {
-  default     = "vnet1"
-  
+variable "location_primary" {
+  type = string
 }
 
-variable network_name_2 {
-  default     = "vnet2"
-  
+variable "resource_group_name_secondary" {
+  type = string
 }
 
-variable location {
-  default     = "eastus"
-  
+variable "location_secondary" {
+  type = string
 }
 
-variable name {
-  default     = ""
-  
+variable "resource_group_name_tm" {
+  type = string
 }
 
-variable name {
-  default     = ""
-  
+variable "location_tm" {
+  type = string
 }
 
-variable name {
-  default     = ""
-  
+#virtual networks
+
+variable "network_name_primary" {
+  type = string
+}
+#add variable network address space
+variable "network_name_secondary" {
+  type = string
+}
+#add variable network address space
+variable "network_name_tm" {
+  type = string
+}
+#add variable network address space
+
+#primary vnet subnets
+
+variable "managementsubnet1" {
+  type = string
+}
+#add variable subnet space
+
+variable "websubnet1" {
+  type = string
+}
+#add variable subnet space
+
+variable "businesssubnet1" {
+  type = string
+}
+#add variable subnet space
+
+variable "datasubnet1" {
+  type = string
+}
+#add variable subnet space
+
+variable "ADsubnet1" {
+  type = string
+}
+#add variable subnet space
+
+#secondary vnet subnets
+
+variable "managementsubnet2" {
+  type = string
+}
+#add variable subnet space
+
+variable "websubnet2" {
+  type = string
+}
+#add variable subnet space
+
+variable "businesssubnet2" {
+  type = string
+}
+#add variable subnet space
+
+variable "datasubnet2" {
+  type = string
+}
+#add variable subnet space
+
+variable "ADsubnet2" {
+  type = string
+}
+#add variable subnet space
+
+#traffic manager vnet subnet
+variable "trafficmanagersubnet" {
+  type = string
+}
+#add variable subnet space
+
+#virtual network peering
+variable "primarytosecondary" {
+  type = string
 }
 
-variable name {
-  default     = ""
-  
-}
-
-#Varable defined in tfvars example
-variable "test" {
+variable "secondarytoprimary" {
   type = string
 }

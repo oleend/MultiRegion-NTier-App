@@ -1,97 +1,152 @@
-#Resource Group Varables and location need to be defined
-resource "azurerm_resource_group" "main" {
-  name     = var.resource_group_name
-  location = var.location
+#resource groups
+resource "azurerm_resource_group" "primary" {
+  name     = var.resource_group_name_primary
+  location = var.location_primary
 }
 
+resource "azurerm_resource_group" "secondary" {
+  name     = var.resource_group_name_secondary
+  location = var.location_secondary
+}
 
-#Vnets
-resource "azurerm_virtual_network" "Network" {
-  name                = var.network_name
+resource "azurerm_resource_group" "trafficmanager" {
+  name     = var.resource_group_name_tm
+  location = var.location_tm
+}
+
+#virtual networks
+resource "azurerm_virtual_network" "primarynet" {
+  name                = var.network_name_primary
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.primary.location
+  resource_group_name = azurerm_resource_group.primary.name
 }
 
-#vnet2
-resource "azurerm_virtual_network" "Network2" {
-  name                = var.network_name_2
+resource "azurerm_virtual_network" "secondarynet" {
+  name                = var.network_name_secondary
   address_space       = ["10.1.0.0/16"]
-  location            = azurerm_resource_group.main.location
-  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.secondary.location
+  resource_group_name = azurerm_resource_group.secondary.name
+}
+
+resource "azurerm_virtual_network" "trafficmanager" {
+  name                = var.network_name_tm
+  address_space       = ["10.2.0.0/16"]
+  location            = azurerm_resource_group.trafficmanager.location
+  resource_group_name = azurerm_resource_group.trafficmanager.name
+}
+
+#primary vnet subnets
+#primary vnet subnet- management
+resource "azurerm_subnet" "managementsubnet1" {
+  name                 = var.managementsubnet1
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_virtual_network.primarynet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+#primary vnet subnet- web
+resource "azurerm_subnet" "websubnet1" {
+  name                 = var.websubnet1
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_virtual_network.primarynet.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+#primary vnet subnet- business
+resource "azurerm_subnet" "businesssubnet1" {
+  name                 = var.businesssubnet1
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_virtual_network.primarynet.name
+  address_prefixes     = ["10.0.3.0/24"]
+}
+
+#primary vnet subnet- data
+resource "azurerm_subnet" "datasubnet1" {
+  name                 = var.datasubnet1
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_virtual_network.primarynet.name
+  address_prefixes     = ["10.0.4.0/24"]
+}
+
+#primary vnet subnet- AD
+resource "azurerm_subnet" "ADsubnet1" {
+  name                 = var.ADsubnet1
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_virtual_network.primarynet.name
+  address_prefixes     = ["10.0.5.0/24"]
+}
+
+#secondary vnet subnets
+#secondary vnet subnet- management
+resource "azurerm_subnet" "managementsubnet2" {
+  name                 = var.managementsubnet2
+  resource_group_name  = azurerm_resource_group.secondary.name
+  virtual_network_name = azurerm_virtual_network.secondarynet.name
+  address_prefixes     = ["10.1.1.0/24"]
+}
+
+#secondary vnet subnet- web
+resource "azurerm_subnet" "websubnet2" {
+  name                 = var.websubnet2
+  resource_group_name  = azurerm_resource_group.secondary.name
+  virtual_network_name = azurerm_virtual_network.secondarynet.name
+  address_prefixes     = ["10.1.2.0/24"]
+}
+
+#secondary vnet subnet- business
+resource "azurerm_subnet" "businesssubnet2" {
+  name                 = var.businesssubnet2
+  resource_group_name  = azurerm_resource_group.secondary.name
+  virtual_network_name = azurerm_virtual_network.secondarynet.name
+  address_prefixes     = ["10.1.3.0/24"]
+}
+
+#secondary vnet subnet- data
+resource "azurerm_subnet" "datasubnet2" {
+  name                 = var.datasubnet2
+  resource_group_name  = azurerm_resource_group.secondary.name
+  virtual_network_name = azurerm_virtual_network.secondarynet.name
+  address_prefixes     = ["10.1.4.0/24"]
+}
+
+#secondary vnet subnet- AD
+resource "azurerm_subnet" "ADsubnet2" {
+  name                 = var.ADsubnet2
+  resource_group_name  = azurerm_resource_group.secondary.name
+  virtual_network_name = azurerm_virtual_network.secondarynet.name
+  address_prefixes     = ["10.1.5.0/24"]
+}
+
+#traffic manager vnet subnet
+resource "azurerm_subnet" "trafficmanagersubnet" {
+  name                 = var.trafficmanagersubnet
+  resource_group_name  = azurerm_resource_group.trafficmanager.name
+  virtual_network_name = azurerm_virtual_network.trafficmanager.name
+  address_prefixes     = ["10.2.1.0/24"]
+}
+
+#virtual network peering
+resource "azurerm_virtual_network_peering" "primarytosecondary" {
+  name                      = var.primarytosecondary
+  resource_group_name       = azurerm_resource_group.primary.name
+  virtual_network_name      = azurerm_virtual_network.primarynet.name
+  remote_virtual_network_id = azurerm_virtual_network.secondarynet.id
+}
+
+resource "azurerm_virtual_network_peering" "secondarytoprimary" {
+  name                      = var.secondarytoprimary
+  resource_group_name       = azurerm_resource_group.secondary.name
+  virtual_network_name      = azurerm_virtual_network.secondarynet.name
+  remote_virtual_network_id = azurerm_virtual_network.primarynet.id
 }
 
 
-#First subnet- Subnets should be good
-resource "azurerm_subnet" "Managementsub1" {
-  name                 = "Managementsub1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network.name
-  address_prefixes     = ["10.0.1.0/24"]
-#vnet1 - sub2
-resource "azurerm_subnet" "websubnet1" {
-  name                 = "websubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network.name
-  address_prefixes     = ["10.0.2.0/24"]
-#Vnet1- sub3
-resource "azurerm_subnet" "buisnessSubnet1" {
-  name                 = "buisnessSubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network.name
-  address_prefixes     = ["10.0.3.0/24"]
-#Vnet1- sub4
-  resource "azurerm_subnet" "datasubnet1" {
-  name                 = "datasubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network.name
-  address_prefixes     = ["10.0.4.0/24"]
- #Vnet1- sub5
-  resource "azurerm_subnet" "ADSubnet1" {
-  name                 = "ADSubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network.name
-  address_prefixes     = ["10.0.5.0/24"]
+#Working on Virst Vnet Managment With bastion, needs work
 
 
-
-#Second Vnet- sub1
-resource "azurerm_subnet" "Managementsub2" {
-  name                 = "Managementsub2"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network2.name
-  address_prefixes     = ["10.1.1.0/24"]
-#vnet1 - sub2
-  resource "azurerm_subnet" "websubnet2" {
-  name                 = "websubnet2"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network2.name
-  address_prefixes     = ["10.1.2.0/24"]
-#vnet1 - sub3
-  resource "azurerm_subnet" "buisnessSubnet1" {
-  name                 = "buisnessSubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network2.name
-  address_prefixes     = ["10.1.3.0/24"]
-#vnet1 - sub4
-  resource "azurerm_subnet" "datasubnet1" {
-  name                 = "datasubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network2.name
-  address_prefixes     = ["10.1.4.0/24"]
-#vnet1 - sub5
-  resource "azurerm_subnet" "ADSubnet1" {
-  name                 = "ADSubnet1"
-  resource_group_name  = azurerm_resource_group.main.name
-  virtual_network_name = azurerm_virtual_network.Network2.name
-  address_prefixes     = ["10.1.5.0/24"]
-
-
-  #Working on Virst Vnet Managment With bastion, needs work
-
-
-  #public ip
-  resource "azurerm_public_ip" "bastion_ip1" {
+#public ip
+resource "azurerm_public_ip" "bastion_ip1" {
   name                = "bastion_ip1"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
@@ -122,7 +177,7 @@ resource "azurerm_virtual_machine" "bastion_vm" {
 
 
 
-#OS Disk
+  #OS Disk
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
