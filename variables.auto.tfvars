@@ -1,24 +1,55 @@
-#Template NEEDS WORK
-
-
 #resource group variables
-RG_name  = "terraform_build"
-location = "eastus"
+resource_group_name_primary   = "primaryRG"
+location_primary              = "eastus"
+resource_group_name_secondary = "secondaryRG"
+location_secondary            = "centralus"
+resource_group_name_tm        = "trafficmanagerRG"
+location_tm                   = "eastus"
 
-#Networking Variables
-network_NSG     = "Network_security_Group"
-network_name    = "Hub_network"
-address_space   = ["10.0.0.0/16"]
-subnet1         = "webservers"
-subnet_address  = "10.0.1.0/24"
-subnet2         = "databases"
-subnet2_address = "10.0.2.0/24"
+#virtual networks variables
+network_name_primary = "vnetprimary"
+#add address space
+network_name_secondary = "vnetsecondary"
+#add address space
+network_name_tm = "vnettrafficmanager"
+#add address space
 
-tags = {
-  "Name" = "test",
-  "team" = "dev"
-}
-#VM Variables
+#primary vnet subnets
+managementsubnet1 = "managementsubnet1"
+#add variable subnet space
+websubnet1 = "websubnet1"
+#add variable subnet space
+businesssubnet1 = "businesssubnet1"
+#add variable subnet space
+datasubnet1 = "databasesubnet1"
+#add variable subnet space
+ADsubnet1 = "activedirectorysubent1"
+#add variable subnet space
+
+#secondary vnet subnets
+managementsubnet2 = "managementsubnet2"
+#add variable subnet space
+websubnet2 = "websubnet2"
+#add variable subnet space
+businesssubnet2 = "businesssubnet2"
+#add variable subnet space
+datasubnet2 = "databasesubnet2"
+#add variable subnet space
+ADsubnet2 = "activedirectorysubent2"
+#add variable subnet space
+
+#traffic manager vnet subnet
+trafficmanagersubnet = "trafficmanagersubnet"
+#add variable subnet space
+
+#virtual network peering
+primarytosecondary = "primarytpsecondary"
+secondarytoprimary = "secondarytoprimary"
+
+
+
+
+
 
 #PIP
 linux1_pip_allocation_method = "Dynamic"
