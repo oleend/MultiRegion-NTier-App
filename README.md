@@ -3,5 +3,6 @@ Terraform reference code for an N-tier application running in multiple Azure reg
 
 Update Log:
 
-Version 0.01 -Added subnets and vnets. Subnets need names. Also created first basion host. Needs work as well. -DO
+Version 0.01 - Added subnets and vnets. Subnets need names. Also created first basion host. Needs work as well. -DO
 Version 0.5 - Working on some basic varables and setting up main
+Version 0.6 - Brian Has worked on Networking aspect. All functioning. David Working on Comments and Whitespace.
