@@ -45,12 +45,21 @@ resource "azurerm_virtual_network" "trafficmanager" {
 
 
 #primary vnet subnet- management
-resource "azurerm_subnet" "managementsubnet1" {
-  name                 = var.managementsubnet1
+#resource "azurerm_subnet" "managementsubnet1" {
+#  name                 = var.managementsubnet1
+#  resource_group_name  = azurerm_resource_group.primary.name
+#  virtual_network_name = azurerm_virtual_network.primarynet.name
+#  address_prefixes     = ["10.0.1.0/24"]
+#}
+
+#primary vnet subnet- management
+resource "azurerm_subnet" "AzureBastionSubnet" {
+  name                 = var.AzureBastionSubnet
   resource_group_name  = azurerm_resource_group.primary.name
   virtual_network_name = azurerm_virtual_network.primarynet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
+
 
 #primary vnet subnet- web
 resource "azurerm_subnet" "websubnet1" {
