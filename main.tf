@@ -182,12 +182,12 @@ resource "azurerm_public_ip" "bastion_ip1" {
   allocation_method   = "Static"
 }
 #Network interface
-#resource "azurerm_network_interface" "main_nic_Bastion1" {
-#  name                = "main_nic_Bastion1"
-#  location            = azurerm_resource_group.primary.location
-#  resource_group_name = azurerm_resource_group.primary.name
+resource "azurerm_network_interface" "main_nic_Bastion1" {
+  name                = "main_nic_Bastion1"
+ location            = azurerm_resource_group.primary.location
+  resource_group_name = azurerm_resource_group.primary.name
 
-#} #remove?
+} #remove?
 /*  ip_configuration {
     name                          = "Internal_Bastion1"
     subnet_id                     = azurerm_subnet.managementsubnet1.id
