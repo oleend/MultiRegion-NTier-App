@@ -45,20 +45,20 @@ resource "azurerm_virtual_network" "trafficmanager" {
 
 
 #primary vnet subnet- management
-resource "azurerm_subnet" "managementsubnet1" {
-  name                 = var.managementsubnet1
-  resource_group_name  = azurerm_resource_group.primary.name
-  virtual_network_name = azurerm_virtual_network.primarynet.name
-  address_prefixes     = ["10.0.1.0/24"]
-}
-
-#primary vnet subnet- management
-#resource "azurerm_subnet" "AzureBastionSubnet" {
-#  name                 = var.AzureBastionSubnet
+#resource "azurerm_subnet" "managementsubnet1" {
+#  name                 = var.managementsubnet1
 #  resource_group_name  = azurerm_resource_group.primary.name
 #  virtual_network_name = azurerm_virtual_network.primarynet.name
 #  address_prefixes     = ["10.0.1.0/24"]
 #}
+
+#primary vnet subnet- management
+resource "azurerm_subnet" "AzureBastionSubnet" {
+  name                 = var.AzureBastionSubnet
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_virtual_network.primarynet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
 
 
 #primary vnet subnet- web
@@ -192,12 +192,12 @@ resource "azurerm_public_ip" "bastion_pip" {
 resource "azurerm_bastion_host" "bastion" {
   name                = var.bastion_name
   location            = azurerm_resource_group.trafficmanager.location
-  resource_group_name = azurerm_subnet.managementsubnet1.resource_group_name
+  resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
 
   ip_configuration {
     name                 = "Bastionpip1"
     #subnet and ip
-    subnet_id            = azurerm_subnet.managementsubnet1.id
+    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
     public_ip_address_id = azurerm_public_ip.bastion_pip.id
   }
 }
