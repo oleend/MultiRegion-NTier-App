@@ -176,7 +176,7 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 
 resource "azurerm_public_ip" "bastion_pip" {
   name                = "bastion_pip"
-  location            = azurerm_subnet.managementsubnet1.location
+  location            = azurerm_resource_group.trafficmanager.location
   resource_group_name = azurerm_subnet.managementsubnet1.resource_group_name
   allocation_method   = "Static"
   sku                 =  "Basic"
@@ -191,7 +191,7 @@ resource "azurerm_public_ip" "bastion_pip" {
 #two of these
 resource "azurerm_bastion_host" "bastion" {
   name                = var.bastion_name
-  location            = azurerm_subnet.managementsubnet1.location
+  location            = azurerm_resource_group.trafficmanager.location
   resource_group_name = azurerm_subnet.managementsubnet1.resource_group_name
 
   ip_configuration {
