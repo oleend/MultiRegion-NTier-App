@@ -68,6 +68,11 @@ variable "managementsubnet1" {
   type = string
 }
 
+#Bastion Subnet - Primary
+variable "AzureBastionSubne" {
+  type = string
+}
+
 #Web Subnet -Primary
 variable "websubnet1" {
   type = string
