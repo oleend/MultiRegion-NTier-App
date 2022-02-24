@@ -101,6 +101,7 @@ secondarytoprimary = "secondarytoprimary"
 #LINIX BASTION HOST - IN PROGRESS
 
 
+bastion_name = "bastion1"
 
 
 
