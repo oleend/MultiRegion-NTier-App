@@ -231,7 +231,7 @@ resource "azurerm_bastion_host" "bastion_vm" {
   resource_group_name   = azurerm_resource_group.primary.name
   copy_paste_enabled     = "true"
   file_copy_enabled      = "true"
-  sku                    = "basic"
+  sku                    = "Basic"
   ip_connect_enabled     = "false"
   scale_units            = "2"
   shareable_link_enabled = "false"
