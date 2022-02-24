@@ -189,7 +189,7 @@ resource "azurerm_public_ip" "bastion_pip" {
 
 
 #two of these
-resource "azurerm_bastion_host" "bastion" {
+resource "azurerm_bastion_host" "firstBastion" {
   name                = var.bastion_name
   location            = azurerm_resource_group.trafficmanager.location
   resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
