@@ -238,7 +238,7 @@ resource "azurerm_bastion_host" "bastion_vm" {
 
 ip_configuration {
     name                          = "Internal_Bastion1"
-    subnet_id                     = azurerm_subnet.managementsubnet1.id
+    subnet_id                     =  "AzureBastionSubnet"
     #private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
   }
