@@ -173,10 +173,10 @@ resource "azurerm_public_ip" "bastion_ip1" {
   allocation_method   = "Static"
 }
 #Network interface
-resource "azurerm_network_interface" "main_nic_Bastion1" {
-  name                = "main_nic_Bastion1"
-  location            = azurerm_resource_group.primary.location
-  resource_group_name = azurerm_resource_group.primary.name
+#resource "azurerm_network_interface" "main_nic_Bastion1" {
+#  name                = "main_nic_Bastion1"
+#  location            = azurerm_resource_group.primary.location
+#  resource_group_name = azurerm_resource_group.primary.name
 
 } #remove?
 /*  ip_configuration {
@@ -229,18 +229,18 @@ resource "azurerm_bastion_host" "bastion_vm" {
   name                  = "bastion_vm"
   location              = azurerm_resource_group.primary.location
   resource_group_name   = azurerm_resource_group.primary.name
-  copy_paste_enabled     = "True"
-  file_copy_enabled      = "True"
+  copy_paste_enabled     = "true"
+  file_copy_enabled      = "true"
   sku                    = "basic"
-  ip_connect_enabled     = "False"
+  ip_connect_enabled     = "false"
   scale_units            = "2"
-  shareable_link_enabled = "False"
-  tunneling_enabled      = "False"
+  shareable_link_enabled = "false"
+  tunneling_enabled      = "false"
 
 ip_configuration {
     name                          = "Internal_Bastion1"
     subnet_id                     = azurerm_subnet.managementsubnet1.id
-    private_ip_address_allocation = "Dynamic"
+    #private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
   }
 
