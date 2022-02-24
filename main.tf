@@ -168,8 +168,8 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 #public ip
 resource "azurerm_public_ip" "bastion_ip1" {
   name                = "bastion_ip1"
-  resource_group_name = azurerm_resource_group.primary.name
-  location            = azurerm_resource_group.primary.location
+  resource_group_name = azurerm_resource_group_primary.primary.name
+  location            = azurerm_resource_group_primary.primary.location
   allocation_method   = "Static"
 }
 #Network interface
@@ -189,9 +189,9 @@ resource "azurerm_network_interface" "main_nic_Bastion1" {
 #Virtual mashine
 resource "azurerm_virtual_machine" "bastion_vm" {
   name                  = "bastion-vm"
-  location              = azurerm_resource_group.main.location
-  resource_group_name   = azurerm_resource_group.main.name
-  network_interface_ids = [azurerm_network_interface.main_nic.id]
+  location              = azurerm_resource_group_primary.main.location
+  resource_group_name   = azurerm_resource_group_primary.main.name
+  network_interface_ids = [azurerm_network_interface.main_nic_Bastion1.id]
   vm_size               = "Standard_B1s"
 
 
