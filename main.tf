@@ -175,11 +175,11 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 
 
 #public ip
-#resource "azurerm_public_ip" "bastion_ip1" {
- # name                = "bastion_ip1"
- # resource_group_name = azurerm_resource_group.primary.name
- # location            = azurerm_resource_group.primary.location
- # allocation_method   = "Static"
+resource "azurerm_public_ip" "bastion_ip1" {
+  name                = "bastion_ip1"
+  resource_group_name = azurerm_resource_group.primary.name
+  location            = azurerm_resource_group.primary.location
+  allocation_method   = "Static"
 #}
 #Network interface
 #resource "azurerm_network_interface" "main_nic_Bastion1" {
