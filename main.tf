@@ -184,8 +184,16 @@ resource "azurerm_public_ip" "bastion_ip1" {
 #Network interface
 resource "azurerm_network_interface" "main_nic_Bastion1" {
   name                = "main_nic_Bastion1"
- location            = azurerm_resource_group.primary.location
+  location            = azurerm_resource_group.primary.location
   resource_group_name = azurerm_resource_group.primary.name
+
+ip_configuration {
+    name                          = "Internal_Bastion1"
+    subnet_id                     =  azurerm_subnet.AzureBastionSubnet.id
+    #private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
+  }
+
 
 } #remove?
 /*  ip_configuration {
@@ -245,12 +253,7 @@ resource "azurerm_bastion_host" "bastion_vm" {
   shareable_link_enabled = "false"
   tunneling_enabled      = "false"
 
-ip_configuration {
-    name                          = "Internal_Bastion1"
-    subnet_id                     =  azurerm_subnet.AzureBastionSubnet.id
-    #private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
-  }
+
 
   
 }
