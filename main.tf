@@ -49,7 +49,7 @@ resource "azurerm_virtual_network" "trafficmanager" {
 #  name                 = var.managementsubnet1
 #  resource_group_name  = azurerm_resource_group.primary.name
 #  virtual_network_name = azurerm_virtual_network.primarynet.name
-#  address_prefixes     = ["10.0.1.0/24"]
+ # address_prefixes     = ["10.0.1.0/24"]
 #}
 
 #primary vnet subnet- management
@@ -247,7 +247,7 @@ resource "azurerm_bastion_host" "bastion_vm" {
 
 ip_configuration {
     name                          = "Internal_Bastion1"
-    subnet_id                     =  "AzureBastionSubnet"
+    subnet_id                     =  azurerm_subnet.AzureBastionSubnet.id
     #private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
   }
