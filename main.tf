@@ -262,7 +262,7 @@ resource "azurerm_virtual_machine" "bastion_vm" {
 
 module "azure-bastion" {
   source  = "kumarvna/azure-bastion/azurerm"
-  version = "1.2.0"
+  #version = "1.2.0"
 
   # Resource Group, location, VNet and Subnet details
   resource_group_name  = azurerm_resource_group.primary.name
