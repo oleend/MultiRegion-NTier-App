@@ -252,7 +252,7 @@ resource "azurerm_bastion_host" "bastion_vm" {
   scale_units            = "2"
   shareable_link_enabled = "false"
   tunneling_enabled      = "false"
-
+   ip_connect_enabled    = "false"
 
 
   
