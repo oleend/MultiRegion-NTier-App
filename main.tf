@@ -175,17 +175,24 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 
 
 #public ip
-resource "azurerm_public_ip" "bastion_ip1" {
-  name                = "bastion_ip1"
-  resource_group_name = azurerm_resource_group.primary.name
-  location            = azurerm_resource_group.primary.location
-  allocation_method   = "Dynamic"
-}
+#resource "azurerm_public_ip" "bastion_ip1" {
+ # name                = "bastion_ip1"
+  #resource_group_name = azurerm_resource_group.primary.name
+ # location            = azurerm_resource_group.primary.location
+ # allocation_method   = "Static"
+#}
 #Network interface
 #resource "azurerm_network_interface" "main_nic_Bastion1" {
 #  name                = "main_nic_Bastion1"
 #  location            = azurerm_resource_group.primary.location
 #  resource_group_name = azurerm_resource_group.primary.name
+#ip_configuration {
+ #   name                          = "Internal_Bastion1"
+  #  subnet_id                     =  azurerm_subnet.AzureBastionSubnet.id
+   #private_ip_address_allocation = "Dynamic"
+   # public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
+  #}
+
 
 #}
 
@@ -238,28 +245,32 @@ resource "azurerm_virtual_machine" "bastion_vm" {
 }
 
 */
-resource "azurerm_bastion_host" "bastion_vm" {
-  name                  = "bastion_vm"
-  location              = azurerm_resource_group.primary.location
-  resource_group_name   = azurerm_resource_group.primary.name
-  copy_paste_enabled     = "true"
-  sku                    = "Basic"
-  ip_connect_enabled     = "false"
-  scale_units            = "2"
-  shareable_link_enabled = "false"
-  tunneling_enabled      = "false"
-  
 
 
-ip_configuration {
-    name                          = "Internal_Bastion1"
-    subnet_id                     =  azurerm_subnet.AzureBastionSubnet.id
-   #private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
-  }
+#resource "azurerm_bastion_host" "bastion_vm" {
+ # name                  = "bastion_vm"
+ # location              = azurerm_resource_group.primary.location
+  #resource_group_name   = azurerm_resource_group.primary.name
+  #copy_paste_enabled     = "true"
+  #sku                    = "Basic"
+  #ip_connect_enabled     = "false"
+  #scale_units            = "2"
+  #shareable_link_enabled = "false"
+  #tunneling_enabled      = "false"
+ 
+#}
 
+module "azure-bastion" {
+  source  = "kumarvna/azure-bastion/azurerm"
+  version = "1.2.0"
 
+  # Resource Group, location, VNet and Subnet details
+  resource_group_name  = azurerm_resource_group.primary.name
+  virtual_network_name = azurerm_subnet.AzureBastionSubnet.id
 
-
-  
+  # Azure bastion server requireemnts
+  azure_bastion_service_name          = "mybastion-service"
+  #azure_bastion_subnet_address_prefix = ["10.1.5.0/26"]
+  bastion_host_sku                    = "Standard"
+  scale_units                         = 10
 }
