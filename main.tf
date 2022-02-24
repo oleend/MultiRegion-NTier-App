@@ -178,7 +178,7 @@ resource "azurerm_public_ip" "bastion_ip1" {
 #  location            = azurerm_resource_group.primary.location
 #  resource_group_name = azurerm_resource_group.primary.name
 
-} #remove?
+#} #remove?
 /*  ip_configuration {
     name                          = "Internal_Bastion1"
     subnet_id                     = azurerm_subnet.managementsubnet1.id
