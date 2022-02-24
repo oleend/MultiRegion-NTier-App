@@ -36,6 +36,9 @@ network_name_tm = "vnettrafficmanager"
 
 #PRIMARY Subnets
 
+#Bastion Subnet - Primary
+AzureBastionSubnet = "AzureBastionSubnet"
+
 #Managment Subnet -Primary
 managementsubnet1 = "managementsubnet1"
 
