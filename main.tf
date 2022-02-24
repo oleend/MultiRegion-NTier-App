@@ -45,20 +45,20 @@ resource "azurerm_virtual_network" "trafficmanager" {
 
 
 #primary vnet subnet- management
-#resource "azurerm_subnet" "managementsubnet1" {
-#  name                 = var.managementsubnet1
-#  resource_group_name  = azurerm_resource_group.primary.name
-#  virtual_network_name = azurerm_virtual_network.primarynet.name
- # address_prefixes     = ["10.0.1.0/24"]
-#}
-
-#primary vnet subnet- management
-resource "azurerm_subnet" "AzureBastionSubnet" {
-  name                 = var.AzureBastionSubnet
+resource "azurerm_subnet" "managementsubnet1" {
+  name                 = var.managementsubnet1
   resource_group_name  = azurerm_resource_group.primary.name
   virtual_network_name = azurerm_virtual_network.primarynet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
+
+#primary vnet subnet- management
+#resource "azurerm_subnet" "AzureBastionSubnet" {
+#  name                 = var.AzureBastionSubnet
+#  resource_group_name  = azurerm_resource_group.primary.name
+#  virtual_network_name = azurerm_virtual_network.primarynet.name
+#  address_prefixes     = ["10.0.1.0/24"]
+#}
 
 
 #primary vnet subnet- web
@@ -174,6 +174,17 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 #BASTION HOST
 
 
+resource "azurerm_public_ip" "bastion_pip" {
+  name                = "bastion_pip"
+  location            = azurerm_subnet.managementsubnet1.location
+  resource_group_name = azurerm_subnet.managementsubnet1.resource_group_name
+  allocation_method   = "Static"
+  sku                 =  "Basic"
+}
+
+
+
+
 #public ip
 #resource "azurerm_public_ip" "bastion_ip1" {
  # name                = "bastion_ip1"
@@ -260,17 +271,16 @@ resource "azurerm_virtual_machine" "bastion_vm" {
  
 #}
 
-module "azure-bastion" {
-  source  = "kumarvna/azure-bastion/azurerm"
-  #version = "1.2.0"
+#two of these
+resource "azurerm_bastion_host" "bastion" {
+  name                = var.bastion_name
+  location            = azurerm_subnet.managementsubnet1.location
+  resource_group_name = azurerm_subnet.managementsubnet1.resource_group_name
 
-  # Resource Group, location, VNet and Subnet details
-  resource_group_name  = azurerm_resource_group.primary.name
-  virtual_network_name = azurerm_subnet.AzureBastionSubnet.id
-
-  # Azure bastion server requireemnts
-  azure_bastion_service_name          = "mybastion-service"
-  #azure_bastion_subnet_address_prefix = ["10.1.5.0/26"]
-  bastion_host_sku                    = "Standard"
-  scale_units                         = 2
+  ip_configuration {
+    name                 = var.ip_configuration_name
+    #subnet and ip
+    subnet_id            = azurerm_subnet.managementsubnet1.id
+    public_ip_address_id = azurerm_public_ip.bastion_pip.id
+  }
 }
