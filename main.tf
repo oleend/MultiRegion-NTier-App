@@ -180,7 +180,7 @@ resource "azurerm_network_interface" "main_nic_Bastion1" {
 
   ip_configuration {
     name                          = "Internal_Bastion1"
-    subnet_id                     = azurerm_subnet.Managementsub1.id
+    subnet_id                     = azurerm_subnet.managementsubnet1.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.bastion_ip1.id
   }
