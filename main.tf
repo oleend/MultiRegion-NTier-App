@@ -195,7 +195,7 @@ resource "azurerm_bastion_host" "bastion" {
   resource_group_name = azurerm_subnet.managementsubnet1.resource_group_name
 
   ip_configuration {
-    name                 = var.ip_configuration_name
+    name                 = "Bastionpip1"
     #subnet and ip
     subnet_id            = azurerm_subnet.managementsubnet1.id
     public_ip_address_id = azurerm_public_ip.bastion_pip.id
