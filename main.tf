@@ -189,8 +189,8 @@ resource "azurerm_network_interface" "main_nic_Bastion1" {
 #Virtual mashine
 resource "azurerm_virtual_machine" "bastion_vm" {
   name                  = "bastion-vm"
-  location              = azurerm_resource_group_primary.main.location
-  resource_group_name   = azurerm_resource_group_primary.main.name
+  location              = azurerm_resource_group.main.location
+  resource_group_name   = azurerm_resource_group.main.name
   network_interface_ids = [azurerm_network_interface.main_nic_Bastion1.id]
   vm_size               = "Standard_B1s"
 
