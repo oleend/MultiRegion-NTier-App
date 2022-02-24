@@ -5,7 +5,7 @@
 
 
 #PRIMARY Name and Locaiton
-resource_group_name_primary   = "primaryRG"
+resource_group_name_primary   = "primaryRG2"
 location_primary              = "eastus2"
 
 #SECONDARY Name and Location
