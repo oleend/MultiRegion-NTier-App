@@ -256,7 +256,7 @@ name = "BackEndAddressPool"
 
 #LB Created for Buisness Hosts 2
 resource "azurerm_lb" "vnet1loadbalancer2" {
-name = var.vnet1loadbalancer2
+name = var.vnet2loadbalancer
 location = azurerm_resource_group.secondary.location
 resource_group_name = azurerm_resource_group.secondary.name
 
