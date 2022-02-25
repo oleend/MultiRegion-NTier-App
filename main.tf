@@ -275,7 +275,7 @@ resource "azurerm_virtual_machine" "testvm" {
   location              = azurerm_resource_group.primary.location
   resource_group_name   = "primaryRG"
   network_interface_ids = [azurerm_network_interface.testvmnic.id]
-  vm_size               = "Standard_BS1_v1"
+  vm_size               = "Standard_B1s"
 
     storage_image_reference {
     publisher = "Canonical"
