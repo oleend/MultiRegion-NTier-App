@@ -258,7 +258,17 @@ resource "azurerm_bastion_host" "secondBastion" {
 
 #BUISNESS TIER VMS
 
+resource "azurerm_lb_probe" "buisnesshealth" {
+  resource_group_name = azurerm_resource_group.primary.location
+  loadbalancer_id     = azurerm_lb.buisnesstier1.id
+  name                = "http-probe-buisness1"
+  protocol            = "Http"
+  request_path        = "/health"
+  port                = 8080
+}
 
+
+#Scale Set- Buisness Teir
 resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
   name                = "buisnesstier1"
   location            = azurerm_resource_group.primary.location
