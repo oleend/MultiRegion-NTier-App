@@ -275,3 +275,4 @@ resource "azurerm_virtual_machine" "testvm" {
   resource_group_name   = "primaryRG"
   network_interface_ids = azurerm_network_interface.testvm-nic.id
   vm_size               = "Standard_BS1_v2"
+}
