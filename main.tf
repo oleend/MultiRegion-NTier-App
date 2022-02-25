@@ -228,6 +228,8 @@ resource "azurerm_bastion_host" "secondBastion" {
 }
 
 
+
+#LB Created for Buisness Hosts
 #resource "azurerm_lb" "vnet1loadbalancer" {
 #name = var.vnet1loadbalancer
 #location = azurerm_resource_group.primary.location
@@ -256,18 +258,90 @@ resource "azurerm_bastion_host" "secondBastion" {
 
 #BUISNESS TIER VMS
 
-#test VM NIC
-resource "azurerm_network_interface" "testvmnic" {
-  name                = "testvmnic"
+
+resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
+  name                = "buisnesstier1"
   location            = azurerm_resource_group.primary.location
   resource_group_name = "primaryRG"
 
-  ip_configuration {
-    name                          = "testvmip"
-    subnet_id                     = azurerm_subnet.businesssubnet1.id
-    private_ip_address_allocation = "Dynamic"
+  # automatic rolling upgrade
+  automatic_os_upgrade = true
+  upgrade_policy_mode  = "Rolling"
+
+  rolling_upgrade_policy {
+    max_batch_instance_percent              = 20
+    max_unhealthy_instance_percent          = 20
+    max_unhealthy_upgraded_instance_percent = 5
+    pause_time_between_batches              = "PT0S"
   }
-}
+
+  # required when using rolling upgrade policy
+  health_probe_id = azurerm_lb_probe.example.id
+
+  sku {
+    name     = "Standard_B1s"
+    tier     = "Basic"
+    capacity = 3
+  }
+
+  storage_profile_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+
+  storage_profile_os_disk {
+    name              = "buisnessosdisk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+    os_profile {
+    computer_name_prefix = "buisness1"
+    admin_username       = "myadmin"
+    admin_password = "Password1234!"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+
+   # ssh_keys {
+   #   path     = "/home/myadmin/.ssh/authorized_keys"
+   #   key_data = file("~/.ssh/demo_key.pub")
+   # }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#TEST VM IF NEEDED
+
+#test VM NIC
+#resource "azurerm_network_interface" "testvmnic" {
+#  name                = "testvmnic"
+#  location            = azurerm_resource_group.primary.location
+#  resource_group_name = "primaryRG"
+
+#  ip_configuration {
+#    name                          = "testvmip"
+#    subnet_id                     = azurerm_subnet.businesssubnet1.id
+#    private_ip_address_allocation = "Dynamic"
+#  }
+#}
 
 #Test VM- VM
 #resource "azurerm_virtual_machine" "testvm" {
