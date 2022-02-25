@@ -228,14 +228,15 @@ resource "azurerm_bastion_host" "secondBastion" {
 }
 
 
+#LOAD BALLENCERS
 
-#LB Created for Buisness Hosts
+
+
+#LB Created for Buisness Hosts 1
 resource "azurerm_lb" "vnet1loadbalancer" {
 name = var.vnet1loadbalancer
 location = azurerm_resource_group.primary.location
 resource_group_name = azurerm_resource_group.primary.name
-
-
 
 frontend_ip_configuration {
 name = "PrivateIPAddress"
@@ -245,10 +246,7 @@ private_ip_address_allocation = "static"
 }
 }
 
-
-
 resource "azurerm_lb_backend_address_pool" "bpepool" {
-
 loadbalancer_id = azurerm_lb.vnet1loadbalancer.id
 name = "BackEndAddressPool"
 }
@@ -256,7 +254,34 @@ name = "BackEndAddressPool"
 
 
 
-#BUISNESS TIER VMS
+#LB Created for Buisness Hosts 2
+resource "azurerm_lb" "vnet1loadbalancer2" {
+name = var.vnet1loadbalancer2
+location = azurerm_resource_group.secondary.location
+resource_group_name = azurerm_resource_group.secondary.name
+
+
+frontend_ip_configuration {
+name = "PrivateIPAddress2"
+subnet_id = azurerm_subnet.datasubnet2.id
+private_ip_address = "10.1.4.5"
+private_ip_address_allocation = "static"
+}
+}
+
+
+resource "azurerm_lb_backend_address_pool" "bpepool2" {
+loadbalancer_id = azurerm_lb.vnet2loadbalancer.id
+name = "BackEndAddressPool2"
+}
+
+
+
+
+
+
+
+#BUISNESS TIER VM1 Scale Set
 
 #Health probe for the VMS in Buisness 1
 resource "azurerm_lb_probe" "buisnesshealth" {
@@ -337,9 +362,86 @@ resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
 
 }
 
+#BUISNESS TIER VM2 Scale Set 2
+
+#Health probe for the VMS in Buisness 2
+resource "azurerm_lb_probe" "buisnesshealth2" {
+  resource_group_name = azurerm_resource_group.secondary.location
+  loadbalancer_id     = azurerm_lb.vnet2loadbalancer.id
+  name                = "http-probe-buisness2"
+  protocol            = "Http"
+  request_path        = "/health"
+  port                = 8080
+}
 
 
+#Scale Set- Buisness Teir 2
+resource "azurerm_virtual_machine_scale_set" "buisnesstier2" {
+  name                = "buisnesstier2"
+  location            = azurerm_resource_group.primary.location
+  resource_group_name = "secondaryRG"
 
+  # automatic rolling upgrade
+  automatic_os_upgrade = true
+  upgrade_policy_mode  = "Rolling"
+
+  rolling_upgrade_policy {
+    max_batch_instance_percent              = 20
+    max_unhealthy_instance_percent          = 20
+    max_unhealthy_upgraded_instance_percent = 5
+    pause_time_between_batches              = "PT0S"
+  }
+
+  # required when using rolling upgrade policy (Buisness 2)
+  health_probe_id = azurerm_lb_probe.buisnesshealth2.id
+
+  sku {
+    name     = "Standard_B1s"
+    tier     = "Basic"
+    capacity = 3
+  }
+
+  storage_profile_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+
+  storage_profile_os_disk {
+    name              = "buisnessosdisk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+    os_profile {
+    computer_name_prefix = "buisness2"
+    admin_username       = "myadmin"
+    admin_password = "Password1234!"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+
+   
+  }
+  #Define Network Profile (Buisness 2)
+  network_profile {
+    name    = "buisness1networkpro2"
+    primary = true
+
+    ip_configuration {
+      name                                   = "BuisnessIPConfig2"
+      primary                                = true
+      subnet_id                              = azurerm_subnet.businesssubnet1.id
+      load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.bpepool.id]
+      load_balancer_inbound_nat_rules_ids    = [azurerm_lb_nat_pool.vnet1loadbalancer.id]
+    }
+  }
+
+
+}
 
 
 

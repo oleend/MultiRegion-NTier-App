@@ -162,3 +162,8 @@ variable "vnet1loadbalancer"{
   type =string
 
 }
+
+variable "vnet1loadbalancer2"{
+  type =string
+
+}
