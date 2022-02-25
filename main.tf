@@ -256,7 +256,7 @@ resource "azurerm_bastion_host" "secondBastion" {
 
 #BUISNESS TIER VMS
 
-#test VM
+#test VM NIC
 resource "azurerm_network_interface" "testvm-nic" {
   name                = "testvm-nic"
   location            = azurerm_resource_group.primary.location
@@ -269,10 +269,30 @@ resource "azurerm_network_interface" "testvm-nic" {
   }
 }
 
+#Test VM- VM
 resource "azurerm_virtual_machine" "testvm" {
   name                  = "test-vm"
   location              = azurerm_resource_group.primary.location
   resource_group_name   = "primaryRG"
   network_interface_ids = azurerm_network_interface.testvm-nic.id
-  vm_size               = "Standard_BS1_v2"
+  vm_size               = "Standard_BS1_v1"
+
+    storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+  storage_os_disk {
+    name              = "vmosdisk1"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    }
+  os_profile {
+    computer_name  = "hostname"
+    admin_username = "testadmin"
+    admin_password = "Password1234!"
+  }
+
+
 }
