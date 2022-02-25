@@ -274,7 +274,7 @@ resource "azurerm_virtual_machine" "testvm" {
   name                  = "test-vm"
   location              = azurerm_resource_group.primary.location
   resource_group_name   = "primaryRG"
-  network_interface_ids = azurerm_network_interface.testvmnic.id
+  network_interface_ids = [azurerm_network_interface.testvmnic.id]
   vm_size               = "Standard_BS1_v1"
 
     storage_image_reference {
