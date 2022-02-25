@@ -270,32 +270,32 @@ resource "azurerm_network_interface" "testvmnic" {
 }
 
 #Test VM- VM
-resource "azurerm_virtual_machine" "testvm" {
-  name                  = "test-vm"
-  location              = azurerm_resource_group.primary.location
-  resource_group_name   = "primaryRG"
-  network_interface_ids = [azurerm_network_interface.testvmnic.id]
-  vm_size               = "Standard_B1s"
+#resource "azurerm_virtual_machine" "testvm" {
+#  name                  = "test-vm"
+#  location              = azurerm_resource_group.primary.location
+#  resource_group_name   = "primaryRG"
+#  network_interface_ids = [azurerm_network_interface.testvmnic.id]
+#  vm_size               = "Standard_B1s"
 
-    storage_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
-  }
-  os_profile_linux_config {
-    disable_password_authentication = false
-  }
-  storage_os_disk {
-    name              = "vmosdisk1"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    }
-  os_profile {
-    computer_name  = "hostname"
-    admin_username = "testadmin"
-    admin_password = "Password1234!"
-  }
+#   storage_image_reference {
+#  publisher = "Canonical"
+#    offer     = "UbuntuServer"
+#    sku       = "16.04-LTS"
+#    version   = "latest"
+#  }
+#  os_profile_linux_config {
+#    disable_password_authentication = false
+#  }
+#  storage_os_disk {
+#    name              = "vmosdisk1"
+#  caching           = "ReadWrite"
+#   create_option     = "FromImage"
+#   }
+# os_profile {
+#   computer_name  = "hostname"
+#   admin_username = "testadmin"
+#   admin_password = "Password1234!"
+# }
 
 
-}
+#}
