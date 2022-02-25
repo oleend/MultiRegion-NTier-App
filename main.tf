@@ -330,7 +330,7 @@ resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
       primary                                = true
       subnet_id                              = azurerm_subnet.businesssubnet1.id
       load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.BackEndAddressPool.id]
-      load_balancer_inbound_nat_rules_ids    = [azurerm_lb_nat_pool.PrivateIPAddress.id]
+      load_balancer_inbound_nat_rules_ids    = [azurerm_lb_nat_pool.net1loadbalancer.id]
     }
   }
 
