@@ -248,7 +248,7 @@ private_ip_address_allocation = "static"
 
 
 resource "azurerm_lb_backend_address_pool" "bpepool" {
-resource_group_name = azurerm_resource_group.primary.name
+
 loadbalancer_id = azurerm_lb.vnet1loadbalancer.id
 name = "BackEndAddressPool"
 }
@@ -286,7 +286,7 @@ resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
   }
 
   # required when using rolling upgrade policy
-  health_probe_id = azurerm_lb_probe.example.id
+  health_probe_id = azurerm_lb_probe.buisnesshealth.id
 
   sku {
     name     = "Standard_B1s"
