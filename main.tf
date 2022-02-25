@@ -136,7 +136,7 @@ resource "azurerm_subnet" "ADsubnet2" {
 }
 
 #Secondary vnet subnet- Bastion
-resource "azurerm_subnet" "AzureBastionSubnet" {
+resource "azurerm_subnet" "AzureBastionSubnet2" {
   name                 = var.AzureBastionSubnet
   resource_group_name  = azurerm_resource_group.secondary.name
   virtual_network_name = azurerm_virtual_network.secondarynet.name
