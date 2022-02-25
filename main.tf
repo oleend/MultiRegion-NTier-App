@@ -226,3 +226,52 @@ resource "azurerm_bastion_host" "secondBastion" {
     public_ip_address_id = azurerm_public_ip.bastion_pip2.id
   }
 }
+
+
+#resource "azurerm_lb" "vnet1loadbalancer" {
+#name = var.vnet1loadbalancer
+#location = azurerm_resource_group.primary.location
+#resource_group_name = azurerm_resource_group.primary.name
+
+
+
+#frontend_ip_configuration {
+#name = "PrivateIPAddress"
+#subnet_id = azurerm_subnet.datasubnet1.id
+#private_ip_address = "10.0.4.5"
+#private_ip_address_allocation = "static"
+#}
+#}
+
+
+
+#resource "azurerm_lb_backend_address_pool" "bpepool" {
+#resource_group_name = azurerm_resource_group.primary.name
+#loadbalancer_id = azurerm_lb.vnet1loadbalancer.id
+#name = "BackEndAddressPool"
+#}
+
+
+
+
+#BUISNESS TIER VMS
+
+#test VM
+resource "azurerm_network_interface" "testvm-nic" {
+  name                = "testvm-nic"
+  location            = azurerm_resource_group.primary.location
+  resource_group_name = "primaryRG"
+
+  ip_configuration {
+    name                          = "testvmip"
+    subnet_id                     = azurerm_subnet.businesssubnet1.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_virtual_machine" "testvm" {
+  name                  = "test-vm"
+  location              = azurerm_resource_group.primary.location
+  resource_group_name   = "primaryRG"
+  network_interface_ids = azurerm_network_interface.testvm-nic.id
+  vm_size               = "Standard_BS1_v2"
