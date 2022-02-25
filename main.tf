@@ -257,8 +257,8 @@ resource "azurerm_bastion_host" "secondBastion" {
 #BUISNESS TIER VMS
 
 #test VM NIC
-resource "azurerm_network_interface" "testvm-nic" {
-  name                = "testvm-nic"
+resource "azurerm_network_interface" "testvmnic" {
+  name                = "testvmnic"
   location            = azurerm_resource_group.primary.location
   resource_group_name = "primaryRG"
 
@@ -274,7 +274,7 @@ resource "azurerm_virtual_machine" "testvm" {
   name                  = "test-vm"
   location              = azurerm_resource_group.primary.location
   resource_group_name   = "primaryRG"
-  network_interface_ids = azurerm_network_interface.testvm-nic.id
+  network_interface_ids = azurerm_network_interface.testvmnic.id
   vm_size               = "Standard_BS1_v1"
 
     storage_image_reference {
