@@ -140,7 +140,7 @@ resource "azurerm_subnet" "AzureBastionSubnet2" {
   name                 = var.AzureBastionSubnet
   resource_group_name  = azurerm_resource_group.secondary.name
   virtual_network_name = azurerm_virtual_network.secondarynet.name
-  address_prefixes     = ["10.2.6.0/24"]
+  address_prefixes     = ["10.1.6.0/24"]
 }
 
 
