@@ -209,7 +209,7 @@ resource "azurerm_bastion_host" "firstBastion" {
 resource "azurerm_public_ip" "bastion_pip2" {
   name                = "bastion_pip2"
   location            = azurerm_resource_group.secondary.location
-  resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
+  resource_group_name = "secondaryRG"
   allocation_method   =  "Static"
   sku                 =  "Standard"
 }
@@ -218,7 +218,7 @@ resource "azurerm_public_ip" "bastion_pip2" {
 resource "azurerm_bastion_host" "secondBastion" {
   name                = var.bastion_name2
   location            = azurerm_resource_group.secondary.location
-  resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
+  resource_group_name = "secondaryRG"
 
   ip_configuration {
     name                 = "Bastionpip1"
