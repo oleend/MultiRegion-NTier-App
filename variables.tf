@@ -163,7 +163,7 @@ variable "vnet1loadbalancer"{
 
 }
 
-variable "vnet1loadbalancer2"{
+variable "vnet2loadbalancer"{
   type =string
 
 }

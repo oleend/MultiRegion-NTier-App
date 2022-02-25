@@ -112,6 +112,6 @@ bastion_name2 = "bastion2"
 
 vnet1loadbalancer= "vnet1loadbalencer"
 
-vnet1loadbalancer2= "vnet1loadbalencer2"
+vnet2loadbalancer= "vnet2loadbalencer"
 
 
