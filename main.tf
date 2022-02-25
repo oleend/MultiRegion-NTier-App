@@ -178,12 +178,9 @@ resource "azurerm_public_ip" "bastion_pip" {
   name                = "bastion_pip"
   location            = azurerm_resource_group.trafficmanager.location
   resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
-  allocation_method   = "Static"
-  sku                 =  "Basic"
+  allocation_method   =  "Static"
+  sku                 =  "Standard"
 }
-
-
-
 
 
 
@@ -196,7 +193,6 @@ resource "azurerm_bastion_host" "firstBastion" {
 
   ip_configuration {
     name                 = "Bastionpip1"
-    #subnet and ip
     subnet_id            = azurerm_subnet.AzureBastionSubnet.id
     public_ip_address_id = azurerm_public_ip.bastion_pip.id
   }
