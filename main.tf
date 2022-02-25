@@ -312,6 +312,7 @@ resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
    #   key_data = file("~/.ssh/demo_key.pub")
    # }
   }
+}
 
 
 
