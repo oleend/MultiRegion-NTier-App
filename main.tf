@@ -135,6 +135,14 @@ resource "azurerm_subnet" "ADsubnet2" {
   address_prefixes     = ["10.1.5.0/24"]
 }
 
+#Secondary vnet subnet- Bastion
+resource "azurerm_subnet" "AzureBastionSubnet" {
+  name                 = var.AzureBastionSubnet
+  resource_group_name  = azurerm_resource_group.secondary.name
+  virtual_network_name = azurerm_virtual_network.secondarynet.name
+  address_prefixes     = ["10.2.6.0/24"]
+}
+
 
 #OTHER VNET
 
@@ -168,29 +176,53 @@ resource "azurerm_virtual_network_peering" "secondarytoprimary" {
 }
 
 
-#BASTION HOST
+#BASTION HOSTS
 
 
+#Bastion 1- VNET 1
+
+#Creating the Public IP: Bastion Host 1
 resource "azurerm_public_ip" "bastion_pip" {
   name                = "bastion_pip"
-  location            = azurerm_resource_group.trafficmanager.location
+  location            = azurerm_resource_group.primary.location
   resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
   allocation_method   =  "Static"
   sku                 =  "Standard"
 }
 
-
-
-
-#two of these
+#Creating the resource: Bastion Host 1
 resource "azurerm_bastion_host" "firstBastion" {
   name                = var.bastion_name
-  location            = azurerm_resource_group.trafficmanager.location
+  location            = azurerm_resource_group.primary.location
   resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
 
   ip_configuration {
     name                 = "Bastionpip1"
     subnet_id            = azurerm_subnet.AzureBastionSubnet.id
     public_ip_address_id = azurerm_public_ip.bastion_pip.id
+  }
+}
+
+#Bastion 2- VNET 2
+
+#Creating the Public IP: Bastion Host 2
+resource "azurerm_public_ip" "bastion_pip2" {
+  name                = "bastion_pip2"
+  location            = azurerm_resource_group.secondary.location
+  resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
+  allocation_method   =  "Static"
+  sku                 =  "Standard"
+}
+
+#Creating the resource: Bastion Host 2
+resource "azurerm_bastion_host" "secondBastion" {
+  name                = var.bastion_name2
+  location            = azurerm_resource_group.secondary.location
+  resource_group_name = azurerm_subnet.AzureBastionSubnet.resource_group_name
+
+  ip_configuration {
+    name                 = "Bastionpip1"
+    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
+    public_ip_address_id = azurerm_public_ip.bastion_pip2.id
   }
 }

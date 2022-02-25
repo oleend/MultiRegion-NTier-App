@@ -145,9 +145,14 @@ variable "secondarytoprimary" {
 }
 
 
-#BASTION
+#BASTIONS
 
 variable "bastion_name"{
+  type =string
+
+}
+
+variable "bastion_name2"{
   type =string
 
 }

@@ -98,11 +98,13 @@ secondarytoprimary = "secondarytoprimary"
 
 
 
-#LINIX BASTION HOST - IN PROGRESS
+# BASTION HOST
 
-
+#Bastion1
 bastion_name = "bastion1"
 
+#Bastion2
+bastion_name2 = "bastion2"
 
 
 #PIP
