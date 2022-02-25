@@ -222,7 +222,7 @@ resource "azurerm_bastion_host" "secondBastion" {
 
   ip_configuration {
     name                 = "Bastionpip1"
-    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
+    subnet_id            = azurerm_subnet.AzureBastionSubnet2.id
     public_ip_address_id = azurerm_public_ip.bastion_pip2.id
   }
 }
