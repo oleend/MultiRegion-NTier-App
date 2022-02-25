@@ -258,6 +258,7 @@ name = "BackEndAddressPool"
 
 #BUISNESS TIER VMS
 
+#Health probe for the VMS in Buisness 1
 resource "azurerm_lb_probe" "buisnesshealth" {
   resource_group_name = azurerm_resource_group.primary.location
   loadbalancer_id     = azurerm_lb.vnet1loadbalancer.id
