@@ -107,6 +107,13 @@ bastion_name = "bastion1"
 bastion_name2 = "bastion2"
 
 
+
+#LoadBallencer
+
+vnet1loadbalancer= "vnet1loadbalencer"
+
+
+
 #PIP
 #linux1_pip_allocation_method = "Dynamic"
 

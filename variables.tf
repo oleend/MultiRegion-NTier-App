@@ -156,3 +156,9 @@ variable "bastion_name2"{
   type =string
 
 }
+
+#Load Balencers
+variable "vnet1loadbalancer"{
+  type =string
+
+}

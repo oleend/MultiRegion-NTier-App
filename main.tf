@@ -230,28 +230,28 @@ resource "azurerm_bastion_host" "secondBastion" {
 
 
 #LB Created for Buisness Hosts
-#resource "azurerm_lb" "vnet1loadbalancer" {
-#name = var.vnet1loadbalancer
-#location = azurerm_resource_group.primary.location
-#resource_group_name = azurerm_resource_group.primary.name
+resource "azurerm_lb" "vnet1loadbalancer" {
+name = var.vnet1loadbalancer
+location = azurerm_resource_group.primary.location
+resource_group_name = azurerm_resource_group.primary.name
 
 
 
-#frontend_ip_configuration {
-#name = "PrivateIPAddress"
-#subnet_id = azurerm_subnet.datasubnet1.id
-#private_ip_address = "10.0.4.5"
-#private_ip_address_allocation = "static"
-#}
-#}
+frontend_ip_configuration {
+name = "PrivateIPAddress"
+subnet_id = azurerm_subnet.datasubnet1.id
+private_ip_address = "10.0.4.5"
+private_ip_address_allocation = "static"
+}
+}
 
 
 
-#resource "azurerm_lb_backend_address_pool" "bpepool" {
-#resource_group_name = azurerm_resource_group.primary.name
-#loadbalancer_id = azurerm_lb.vnet1loadbalancer.id
-#name = "BackEndAddressPool"
-#}
+resource "azurerm_lb_backend_address_pool" "bpepool" {
+resource_group_name = azurerm_resource_group.primary.name
+loadbalancer_id = azurerm_lb.vnet1loadbalancer.id
+name = "BackEndAddressPool"
+}
 
 
 
@@ -260,7 +260,7 @@ resource "azurerm_bastion_host" "secondBastion" {
 
 resource "azurerm_lb_probe" "buisnesshealth" {
   resource_group_name = azurerm_resource_group.primary.location
-  loadbalancer_id     = azurerm_lb.buisnesstier1.id
+  loadbalancer_id     = azurerm_lb.vnet1loadbalancer.id
   name                = "http-probe-buisness1"
   protocol            = "Http"
   request_path        = "/health"
@@ -317,10 +317,7 @@ resource "azurerm_virtual_machine_scale_set" "buisnesstier1" {
   os_profile_linux_config {
     disable_password_authentication = false
 
-   # ssh_keys {
-   #   path     = "/home/myadmin/.ssh/authorized_keys"
-   #   key_data = file("~/.ssh/demo_key.pub")
-   # }
+   
   }
 }
 
