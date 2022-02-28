@@ -501,7 +501,7 @@ resource "azurerm_network_security_group" "primary-nsg_data" {
     destination_address_prefix = "*"
   }
 
-
+}
 #Applying the Security Groups
 
 #Applying the NSG to WebPrimary
