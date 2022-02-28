@@ -461,9 +461,9 @@ resource "azurerm_network_security_group" "primary-nsg-main" {
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Ssh"
+    protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -494,9 +494,9 @@ resource "azurerm_network_security_group" "primary-nsg_data" {
     priority                   = 103
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Ssh"
+    protocol                   = "tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -534,9 +534,9 @@ resource "azurerm_network_security_group" "secondary-nsg-main" {
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Ssh"
+    protocol                   = "tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -569,7 +569,7 @@ resource "azurerm_network_security_group" "secondary-nsg_data" {
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
+    destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
