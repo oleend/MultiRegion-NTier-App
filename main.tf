@@ -445,30 +445,153 @@ resource "azurerm_virtual_machine_scale_set" "buisnesstier2" {
 
 
 
-#NSG TEMP
+#NETWORK SECURITY GROUPS
 
-#Primary NSG
-resource "azurerm_network_security_group" "nsgPrimary" {
-  name                = "nsgPrimary"
+
+#PRIMARY AREA
+
+#Primary NSG -Main (For Buisness and Web)
+resource "azurerm_network_security_group" "primary-nsg-main" {
+  name                = "primary-nsg-main"
   location            = azurerm_resource_group.primary.location
   resource_group_name = azurerm_resource_group.primary.name
+
+  security_rule {
+    name                       = "Remote"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "SSH"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "WebTraffic"
+    priority                   = 101
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_range     = "80, 443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+
 }
 
-resource "azurerm_network_security_rule" "example" {
-  name                        = "test123"
-  priority                    = 100
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "*"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
-  resource_group_name         = azurerm_resource_group.primary.name
-  network_security_group_name = "nsgPrimary"
+#Primary NSG - Data (SQL servers)
+resource "azurerm_network_security_group" "primary-nsg_data" {
+  name                = "primary-nsg-Data"
+  location            = azurerm_resource_group.primary.location
+  resource_group_name = azurerm_resource_group.primary.name
+
+  security_rule {
+    name                       = "Remote"
+    priority                   = 103
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "SSH"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+
+#Applying the Security Groups
+
+#Applying the NSG to WebPrimary
+resource "azurerm_subnet_network_security_group_association" "primary-web-nsg" {
+  subnet_id                 = azurerm_subnet.websubnet1.id
+  network_security_group_id = azurerm_network_security_group.primary-nsg-main.id
+}
+#Applying the NSG to BuisnessPrimary
+resource "azurerm_subnet_network_security_group_association" "primary-buisness-nsg" {
+  subnet_id                 = azurerm_subnet.businesssubnet1.id
+  network_security_group_id = azurerm_network_security_group.primary-nsg-main.id
+}
+#Applying the NSG-Other to DataPrimary
+resource "azurerm_subnet_network_security_group_association" "primary_data-nsg" {
+  subnet_id                 = azurerm_subnet.datasubnet1.id
+  network_security_group_id = azurerm_network_security_group.primary-nsg_data.id
 }
 
 
+#SECONDARY AREA
+
+#SECONDARY NSG -Main (For Buisness and Web)
+resource "azurerm_network_security_group" "secondary-nsg-main" {
+  name                = "secondary-nsg-main"
+  location            = azurerm_resource_group.secondary.location
+  resource_group_name = azurerm_resource_group.secondary.name
+
+  security_rule {
+    name                       = "Remote"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "SSH"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "WebTraffic"
+    priority                   = 101
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_range     = "80, 443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+
+}
+
+#SECONDARY NSG - Data (SQL servers)
+resource "azurerm_network_security_group" "secondary-nsg_data" {
+  name                = "secondar-nsg_Data"
+  location            = azurerm_resource_group.secondary.location
+  resource_group_name = azurerm_resource_group.secondary.name
+
+  security_rule {
+    name                       = "Remote"
+    priority                   = 103
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "SSH"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+
+#Applying the Security Groups
+
+#Applying the NSG to WebSecondary
+resource "azurerm_subnet_network_security_group_association" "secondary-web-nsg" {
+  subnet_id                 = azurerm_subnet.websubnet2.id
+  network_security_group_id = azurerm_network_security_group.secondary-nsg-main.id
+}
+#Applying the NSG to BuisnessSecondary
+resource "azurerm_subnet_network_security_group_association" "secondary-buisness-nsg" {
+  subnet_id                 = azurerm_subnet.businesssubnet2.id
+  network_security_group_id = azurerm_network_security_group.secondary-nsg-main.id
+}
+#Applying the NSG-Other to DataSecondary
+resource "azurerm_subnet_network_security_group_association" "secondary_data-nsg" {
+  subnet_id                 = azurerm_subnet.datasubnet2.id
+  network_security_group_id = azurerm_network_security_group.secondary-nsg_data.id
+}
 
 
 
