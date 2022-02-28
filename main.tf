@@ -573,7 +573,7 @@ resource "azurerm_network_security_group" "secondary-nsg_data" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
+}
 
 #Applying the Security Groups
 
