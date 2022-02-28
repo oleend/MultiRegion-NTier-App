@@ -567,7 +567,7 @@ resource "azurerm_network_security_group" "secondary-nsg_data" {
     priority                   = 103
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Ssh"
+    protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "*"
     source_address_prefix      = "*"
