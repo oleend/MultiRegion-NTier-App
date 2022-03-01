@@ -1,11 +1,5 @@
-#Variable Type Definaition File - To just define them, information is stored in variables.auto.tfvars.
+#resource groups
 
-
-
-#RESOURCE GROUPS
-
-
-#Primary Region Name and Location
 variable "resource_group_name_primary" {
   type = string
 }
@@ -14,9 +8,6 @@ variable "location_primary" {
   type = string
 }
 
-
-
-#Secondary Region Name and Location
 variable "resource_group_name_secondary" {
   type = string
 }
@@ -25,9 +16,6 @@ variable "location_secondary" {
   type = string
 }
 
-
-
-#TrafficManager Region Name and Location
 variable "resource_group_name_tm" {
   type = string
 }
@@ -36,134 +24,188 @@ variable "location_tm" {
   type = string
 }
 
+#virtual networks
 
-
-
-#VIRTUAL NETWORKS
-
-
-#Priamary Vnet
 variable "network_name_primary" {
   type = string
 }
-#Secondary Vnet
+#add variable network address space
 variable "network_name_secondary" {
   type = string
 }
-#Traffic Management Vnet
+#add variable network address space
 variable "network_name_tm" {
   type = string
 }
+#add variable network address space
 
+#primary vnet subnets
 
-
-#SUBNETS
-
-
-
-#PRIMARY Subnets
-
-#Management Subnet -Primary
 variable "managementsubnet1" {
   type = string
 }
+#add variable subnet space
 
-#Bastion Subnet - Primary
-variable "AzureBastionSubnet" {
-  type = string
-}
-
-#Web Subnet -Primary
 variable "websubnet1" {
   type = string
 }
+#add variable subnet space
 
-#Buisness Subnet -Primary
 variable "businesssubnet1" {
   type = string
 }
+#add variable subnet space
 
-#Database Subnet -Primary
 variable "datasubnet1" {
   type = string
 }
+#add variable subnet space
 
-#Active Directory Subnet -Primary
 variable "ADsubnet1" {
   type = string
 }
+#add variable subnet space
 
+#secondary vnet subnets
 
-
-#SECONDARY Subnets
-
-#Management Subnet -Secondary
 variable "managementsubnet2" {
   type = string
 }
+#add variable subnet space
 
-#Web Subnet -Secondary
 variable "websubnet2" {
   type = string
 }
-#Buisness Subnet -Secondary
+#add variable subnet space
+
 variable "businesssubnet2" {
   type = string
 }
+#add variable subnet space
 
-#Database Subnet -Secondary
 variable "datasubnet2" {
   type = string
 }
+#add variable subnet space
 
-#Active Directory Subnet -Secondary
 variable "ADsubnet2" {
   type = string
 }
+#add variable subnet space
 
-
-
-#OTHER SUBNETS
-
-#Traffic Manager Subnet
+#traffic manager vnet subnet
 variable "trafficmanagersubnet" {
   type = string
 }
+#add variable subnet space
 
-
-
-#PEERING
-
-#Primary to Secondary Peering
+#virtual network peering
 variable "primarytosecondary" {
   type = string
 }
 
-#Secondary to Primary Peering
 variable "secondarytoprimary" {
   type = string
 }
 
-
-#BASTIONS
-
-variable "bastion_name"{
-  type =string
-
+#app service plans
+variable "appserviceplan_primary" {
+  type = string
 }
 
-variable "bastion_name2"{
-  type =string
-
+variable "appserviceplan_secondary" {
+  type = string
 }
 
-#Load Balencers
-variable "vnet1loadbalancer"{
-  type =string
-
+# app services
+variable "appservice_primary" {
+  type = string
 }
 
-variable "vnet2loadbalancer"{
-  type =string
+variable "appservice_secondary" {
+  type = string
+}
 
+# dynamic ip addresses
+variable "pip_primary" {
+  type = string
+}
+
+variable "pip_secondary" {
+  type = string
+}
+
+# application gateway
+variable "appgw_primary" {
+  type = string
+}
+
+variable "appgw_secondary" {
+  type = string
+}
+
+# traffic manager
+variable "traffic_manager" {
+  type = string
+}
+
+variable "tmendpoint_primary" {
+  type = string
+}
+
+variable "tmendpoint_secondary" {
+  type = string
+}
+
+#data tier load balancer
+variable "vnet1datalb" {
+  type = string
+}
+
+variable "vnet2datalb" {
+  type = string
+}
+
+#data tier nic
+variable "vnet1sqlnic" {
+  type = string
+}
+
+variable "vnet2sqlnic" {
+  type = string
+}
+
+#data tier sql server
+variable "vnet1sqlserver" {
+  type = string
+}
+
+variable "vnet2sqlserver" {
+  type = string
+}
+
+#BASTION HOSTS
+variable "bastion1_pip" {
+  type = string
+}
+
+variable "bastion1_name" {
+  type = string
+}
+
+variable "bastion2_pip" {
+  type = string
+}
+
+variable "bastion2_name" {
+  type = string
+}
+
+#LOAD BALLENCERS- business tier
+variable "vnet1buslb" {
+  type = string
+}
+
+variable "vnet2buslb" {
+  type = string
 }

@@ -1,117 +1,90 @@
-#Variables Auto TfVars: Variable information
-
-
-#RESOURCE GROUPS
-
-
-#PRIMARY Name and Locaiton
+#resource group variables
 resource_group_name_primary   = "primaryRG"
 location_primary              = "eastus"
-
-#SECONDARY Name and Location
 resource_group_name_secondary = "secondaryRG"
 location_secondary            = "centralus"
-
-#TrafficManager Name and Location
 resource_group_name_tm        = "trafficmanagerRG"
 location_tm                   = "eastus"
 
-
-
-#VIRTUAL NETWORKS
-
-
-#PRIMARY Virtual Network
+#virtual networks variables
 network_name_primary = "vnetprimary"
-
-#SECONDARY Virtual Network
+#add address space
 network_name_secondary = "vnetsecondary"
-
-#TrafficManager Virtual Network
+#add address space
 network_name_tm = "vnettrafficmanager"
+#add address space
 
-
-#SUBNETS
-
-
-#PRIMARY Subnets
-
-#Bastion Subnet - Primary
-AzureBastionSubnet = "AzureBastionSubnet"
-
-#Managment Subnet -Primary
+#primary vnet subnets
 managementsubnet1 = "managementsubnet1"
-
-#Web Subnet -Primary
+#add variable subnet space
 websubnet1 = "websubnet1"
-
-#Buisness Subnet -Primary
+#add variable subnet space
 businesssubnet1 = "businesssubnet1"
-
-#Database Subnet -Primary
+#add variable subnet space
 datasubnet1 = "databasesubnet1"
-
-#ActiveDirectory Subnet -Primary
+#add variable subnet space
 ADsubnet1 = "activedirectorysubent1"
+#add variable subnet space
 
-
-
-#SECONDARY Subnets
-
-#Managment Subnet -Secondary
+#secondary vnet subnets
 managementsubnet2 = "managementsubnet2"
-
-#Web Subnet -Secondary
+#add variable subnet space
 websubnet2 = "websubnet2"
-
-#Buisness Subnet -Secondary
+#add variable subnet space
 businesssubnet2 = "businesssubnet2"
-
-#Database Subnet -Secondary
+#add variable subnet space
 datasubnet2 = "databasesubnet2"
-
-#ActiveDirectory Subnet -Secondary
+#add variable subnet space
 ADsubnet2 = "activedirectorysubent2"
 #add variable subnet space
 
-
-#OTHER SUBNETS
-
-#Traffic Manager Subnet
+#traffic manager vnet subnet
 trafficmanagersubnet = "trafficmanagersubnet"
+#add variable subnet space
 
-
-
-#PEERING
-
-
-
-#Primary to Secondary Peering
+#virtual network peering
 primarytosecondary = "primarytpsecondary"
-
-
-#Secondary to Primary Peering
 secondarytoprimary = "secondarytoprimary"
 
+#app service plans
+appserviceplan_primary = "appserviceplan_primary"
+appserviceplan_secondary = "appserviceplansecondary"
 
+# app services
+appservice_primary = "appservice-primary"
+appservice_secondary = "appservice-secondary"
 
+# dynamic ip addresses
+pip_primary = "pip_primary"
+pip_secondary = "pip_secondary"
 
+# application gateway
+appgw_primary = "appgw_primary"
+appgw_secondary = "appgw_secondary"
 
+# traffic manager
+traffic_manager = "trafficmanagerteamthree"
+tmendpoint_primary = "tmendpoint_primary"
+tmendpoint_secondary = "tmendpoint_secondary"
 
-# BASTION HOST
+#data tier load balancer
+vnet1datalb = "vnet1datalb"
+vnet2datalb = "vnet2datalb"
 
-#Bastion1
-bastion_name = "bastion1"
+#data tier nic
+vnet1sqlnic = "vnet1sqlnic"
+vnet2sqlnic = "vnet2sqlnic"
 
-#Bastion2
-bastion_name2 = "bastion2"
+#data tier sql server
+vnet1sqlserver = "vnet1sqlserver"
+vnet2sqlserver = "vnet2sqlserver"
 
+#BASTION HOSTS
+bastion1_pip  = "bastion1pip"
+bastion2_pip  = "bastion2pip"
+bastion1_name = "bastionprimary"
+bastion2_name = "bastionsecondary"
 
-
-#LoadBallencers
-
-vnet1loadbalancer= "vnet1loadbalencer"
-
-vnet2loadbalancer= "vnet2loadbalencer"
-
-
+#LOAD BALLENCERS- business tier
+vnet1buslb = "vnetbusl1b"
+vnet2buslb = "vnetbus2lb"
