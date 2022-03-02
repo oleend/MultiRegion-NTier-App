@@ -634,7 +634,7 @@ resource "azurerm_lb_rule" "lb2natrule" {
 resource "azurerm_lb_probe" "businesshealth1" {
   resource_group_name = azurerm_resource_group.primary.location
   loadbalancer_id     = azurerm_lb.vnet1buslb.id
-  name                = "http-probe-business1"
+  name                = "probe-business1"
   protocol            = "Http"
   request_path        = "/health"
   port                = 8080
@@ -712,7 +712,7 @@ resource "azurerm_virtual_machine_scale_set" "businesstier1" {
 resource "azurerm_lb_probe" "businesshealth2" {
   resource_group_name = azurerm_resource_group.secondary.location
   loadbalancer_id     = azurerm_lb.vnet2buslb.id
-  name                = "http-probe-business2"
+  name                = "probe-business2"
   protocol            = "Http"
   request_path        = "/health"
   port                = 8080
