@@ -805,39 +805,9 @@ resource "azurerm_network_security_group" "mainnsg1" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  security_rule {
-    name                       = "Remote"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Ssh"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+ }
 
 
-}
-
-#Data NSG
-resource "azurerm_network_security_group" "datansg1" {
-  name                = "datansg"
-  location            = azurerm_resource_group.primary.location
-  resource_group_name = azurerm_resource_group.primary.name
-
-  security_rule {
-    name                       = "Remote"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Ssh"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-}
 
 #APPLY THE NSG
 
@@ -854,7 +824,7 @@ resource "azurerm_subnet_network_security_group_association" "webnsg1" {
 #data
 resource "azurerm_subnet_network_security_group_association" "datansg1-apply" {
   subnet_id                 = azurerm_subnet.primary.id
-  network_security_group_id = azurerm_network_security_group.datansg1.id
+  network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 #Management
 resource "azurerm_subnet_network_security_group_association" "mgtnsg1" {
@@ -885,39 +855,9 @@ resource "azurerm_network_security_group" "mainnsg2" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  security_rule {
-    name                       = "Remote"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Ssh"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+ }
 
 
-}
-
-#Data NSG2
-resource "azurerm_network_security_group" "datansg2" {
-  name                = "datansg2"
-  location            = azurerm_resource_group.secondary.location
-  resource_group_name = azurerm_resource_group.secondary.name
-
-  security_rule {
-    name                       = "Remote"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Ssh"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-}
 
 #APPLY THE NSG
 
@@ -934,7 +874,7 @@ resource "azurerm_subnet_network_security_group_association" "webnsg2" {
 #data2
 resource "azurerm_subnet_network_security_group_association" "datansg2-apply" {
   subnet_id                 = azurerm_subnet.secondary.id
-  network_security_group_id = azurerm_network_security_group.datansg2.id
+  network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
 #Management2
 resource "azurerm_subnet_network_security_group_association" "mgtnsg2" {
