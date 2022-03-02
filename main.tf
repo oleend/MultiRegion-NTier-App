@@ -827,10 +827,10 @@ resource "azurerm_subnet_network_security_group_association" "datansg1-apply" {
   network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 #Management
-resource "azurerm_subnet_network_security_group_association" "mgtnsg1" {
-  subnet_id                 = azurerm_subnet.managementsubnet1.id
-  network_security_group_id = azurerm_network_security_group.mainnsg1.id
-}
+#resource "azurerm_subnet_network_security_group_association" "mgtnsg1" {
+#  subnet_id                 = azurerm_subnet.managementsubnet1.id
+#  network_security_group_id = azurerm_network_security_group.mainnsg1.id
+#}
 
 
 
@@ -877,7 +877,7 @@ resource "azurerm_subnet_network_security_group_association" "datansg2-apply" {
   network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
 #Management2
-resource "azurerm_subnet_network_security_group_association" "mgtnsg2" {
-  subnet_id                 = azurerm_subnet.managementsubnet2.id
-  network_security_group_id = azurerm_network_security_group.mainnsg2.id
-}
+#resource "azurerm_subnet_network_security_group_association" "mgtnsg2" {
+#  subnet_id                 = azurerm_subnet.managementsubnet2.id
+#  network_security_group_id = azurerm_network_security_group.mainnsg2.id
+#}
