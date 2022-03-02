@@ -822,7 +822,7 @@ resource "azurerm_network_security_group" "mainnsg1" {
 
 #Data NSG
 resource "azurerm_network_security_group" "datansg1" {
-  name                = "datansg1"
+  name                = "datansg"
   location            = azurerm_resource_group.primary.location
   resource_group_name = azurerm_resource_group.primary.name
 
@@ -901,8 +901,8 @@ resource "azurerm_network_security_group" "mainnsg2" {
 }
 
 #Data NSG2
-resource "azurerm_network_security_group" "datansg1" {
-  name                = "datansg1"
+resource "azurerm_network_security_group" "datansg2" {
+  name                = "datansg2"
   location            = azurerm_resource_group.secondary.location
   resource_group_name = azurerm_resource_group.secondary.name
 
