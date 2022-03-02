@@ -852,7 +852,7 @@ resource "azurerm_subnet_network_security_group_association" "webnsg1" {
   network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 #data
-resource "azurerm_subnet_network_security_group_association" "datansg1" {
+resource "azurerm_subnet_network_security_group_association" "datansg1-apply" {
   subnet_id                 = azurerm_subnet.primary.id
   network_security_group_id = azurerm_network_security_group.datansg1.id
 }
@@ -932,7 +932,7 @@ resource "azurerm_subnet_network_security_group_association" "webnsg2" {
   network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
 #data2
-resource "azurerm_subnet_network_security_group_association" "datansg2" {
+resource "azurerm_subnet_network_security_group_association" "datansg2-apply" {
   subnet_id                 = azurerm_subnet.secondary.id
   network_security_group_id = azurerm_network_security_group.datansg2.id
 }
