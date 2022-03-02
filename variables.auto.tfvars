@@ -86,5 +86,5 @@ bastion1_name = "bastionprimary"
 bastion2_name = "bastionsecondary"
 
 #LOAD BALLENCERS- business tier
-vnet1buslb = "vnetbusl1b"
-vnet2buslb = "vnetbus2lb"
+vnet1buslb = "vnet1buslb"
+vnet2buslb = "vnet2buslb"
