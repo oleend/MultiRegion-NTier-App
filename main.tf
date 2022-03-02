@@ -30,7 +30,7 @@ resource "azurerm_virtual_network" "secondarynet" {
 }
 
 resource "azurerm_virtual_network" "trafficmanager" {
-  name                = var.azurerm_bastion_host
+  name                = var.traffic_manager
   address_space       = ["10.2.0.0/16"]
   location            = azurerm_resource_group.trafficmanager.location
   resource_group_name = azurerm_resource_group.trafficmanager.name
