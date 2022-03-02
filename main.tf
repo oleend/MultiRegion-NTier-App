@@ -813,22 +813,22 @@ resource "azurerm_network_security_group" "mainnsg1" {
 
 #Buisness
 resource "azurerm_subnet_network_security_group_association" "buisnessnsg1" {
-  subnet_id                 = azurerm_subnet.primary.id
+  subnet_id                 = azurerm_subnet.businesssubnet1.id
   network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 #Web
 resource "azurerm_subnet_network_security_group_association" "webnsg1" {
-  subnet_id                 = azurerm_subnet.primary.id
+  subnet_id                 = azurerm_subnet.websubnet1.id
   network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 #data
 resource "azurerm_subnet_network_security_group_association" "datansg1-apply" {
-  subnet_id                 = azurerm_subnet.primary.id
+  subnet_id                 = azurerm_subnet.datasubnet1.id
   network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 #Management
 resource "azurerm_subnet_network_security_group_association" "mgtnsg1" {
-  subnet_id                 = azurerm_subnet.primary.id
+  subnet_id                 = azurerm_subnet.managementsubnet1.id
   network_security_group_id = azurerm_network_security_group.mainnsg1.id
 }
 
@@ -863,21 +863,21 @@ resource "azurerm_network_security_group" "mainnsg2" {
 
 #Buisness2
 resource "azurerm_subnet_network_security_group_association" "buisnessnsg2" {
-  subnet_id                 = azurerm_subnet.secondary.id
+  subnet_id                 = azurerm_subnet.businesssubnet2.id
   network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
 #Web2
 resource "azurerm_subnet_network_security_group_association" "webnsg2" {
-  subnet_id                 = azurerm_subnet.secondary.id
+  subnet_id                 = azurerm_subnet.websubnet2.id
   network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
 #data2
 resource "azurerm_subnet_network_security_group_association" "datansg2-apply" {
-  subnet_id                 = azurerm_subnet.secondary.id
+  subnet_id                 = azurerm_subnet.datasubnet2.id
   network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
 #Management2
 resource "azurerm_subnet_network_security_group_association" "mgtnsg2" {
-  subnet_id                 = azurerm_subnet.secondary.id
+  subnet_id                 = azurerm_subnet.managementsubnet2.id
   network_security_group_id = azurerm_network_security_group.mainnsg2.id
 }
