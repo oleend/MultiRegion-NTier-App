@@ -80,7 +80,7 @@ resource "azurerm_subnet" "ADsubnet1" {
 #secondary vnet subnets
 #secondary vnet subnet- management
 resource "azurerm_subnet" "managementsubnet2" {
-  name                 = var.managementsubnet2
+  name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.secondary.name
   virtual_network_name = azurerm_virtual_network.secondarynet.name
   address_prefixes     = ["10.1.1.0/24"]
@@ -120,7 +120,7 @@ resource "azurerm_subnet" "ADsubnet2" {
 
 #traffic manager vnet subnet
 resource "azurerm_subnet" "trafficmanagersubnet" {
-  name                 = "AzureBastionSubnet"
+  name                 = var.traffic_manager
   resource_group_name  = azurerm_resource_group.trafficmanager.name
   virtual_network_name = azurerm_virtual_network.trafficmanager.name
   address_prefixes     = ["10.2.1.0/24"]
