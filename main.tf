@@ -537,7 +537,7 @@ resource "azurerm_bastion_host" "firstBastion" {
 
   ip_configuration {
     name                 = "configbastion1"
-    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
+    subnet_id            = azurerm_subnet.managementsubnet1.id
     public_ip_address_id = azurerm_public_ip.bastion1_pip.id
   }
 }
@@ -560,7 +560,7 @@ resource "azurerm_bastion_host" "secondBastion" {
 
   ip_configuration {
     name                 = "configbastion2"
-    subnet_id            = azurerm_subnet.AzureBastionSubnet2.id
+    subnet_id            = azurerm_subnet.managementsubnet2.id
     public_ip_address_id = azurerm_public_ip.bastion2_pip.id
   }
 }
