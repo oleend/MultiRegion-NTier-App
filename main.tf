@@ -30,7 +30,7 @@ resource "azurerm_virtual_network" "secondarynet" {
 }
 
 resource "azurerm_virtual_network" "trafficmanager" {
-  name                = var.network_name_tm
+  name                = var.azurerm_bastion_host
   address_space       = ["10.2.0.0/16"]
   location            = azurerm_resource_group.trafficmanager.location
   resource_group_name = azurerm_resource_group.trafficmanager.name
@@ -39,7 +39,7 @@ resource "azurerm_virtual_network" "trafficmanager" {
 #primary vnet subnets
 #primary vnet subnet- management
 resource "azurerm_subnet" "managementsubnet1" {
-  name                 = var.managementsubnet1
+  name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.primary.name
   virtual_network_name = azurerm_virtual_network.primarynet.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -120,7 +120,7 @@ resource "azurerm_subnet" "ADsubnet2" {
 
 #traffic manager vnet subnet
 resource "azurerm_subnet" "trafficmanagersubnet" {
-  name                 = var.trafficmanagersubnet
+  name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.trafficmanager.name
   virtual_network_name = azurerm_virtual_network.trafficmanager.name
   address_prefixes     = ["10.2.1.0/24"]
