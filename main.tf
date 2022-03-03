@@ -648,7 +648,7 @@ resource "azurerm_virtual_machine_scale_set" "businesstier1" {
 
   # automatic rolling upgrade
   automatic_os_upgrade = false
-  upgrade_policy_mode  = "Rolling"
+ # upgrade_policy_mode  = "Rolling"
 
   rolling_upgrade_policy {
     max_batch_instance_percent              = 20
