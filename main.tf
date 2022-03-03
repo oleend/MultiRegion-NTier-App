@@ -647,7 +647,7 @@ resource "azurerm_virtual_machine_scale_set" "businesstier1" {
   resource_group_name = azurerm_resource_group.primary.name
 
   # automatic rolling upgrade
-  automatic_os_upgrade = true
+  automatic_os_upgrade = false
   upgrade_policy_mode  = "Rolling"
 
   rolling_upgrade_policy {
@@ -709,14 +709,14 @@ resource "azurerm_virtual_machine_scale_set" "businesstier1" {
 
 #BUSINESS TIER VM2 Scale Set 2
 #Health probe for the VMS in Business 2
-resource "azurerm_lb_probe" "businesshealth2" {
-  resource_group_name = azurerm_resource_group.secondary.location
-  loadbalancer_id     = azurerm_lb.vnet2buslb.id
-  name                = "probe-business2"
-  protocol            = "Http"
-  request_path        = "/health"
-  port                = 8080
-}
+#resource "azurerm_lb_probe" "businesshealth2" {
+#  resource_group_name = azurerm_resource_group.secondary.location
+#  loadbalancer_id     = azurerm_lb.vnet2buslb.id
+#  name                = "probe-business2"
+#  protocol            = "Http"
+#  request_path        = "/health"
+#  port                = 8080
+#}
 
 
 #Scale Set- Business Teir 2
@@ -736,7 +736,7 @@ resource "azurerm_virtual_machine_scale_set" "businesstier2" {
   }
 
   # required when using rolling upgrade policy (Buisness 2)
-  health_probe_id = azurerm_lb_probe.businesshealth2.id
+  #health_probe_id = azurerm_lb_probe.businesshealth2.id
 
   sku {
     name     = "Standard_B1s"
