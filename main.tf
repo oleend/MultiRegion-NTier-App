@@ -594,7 +594,7 @@ resource "azurerm_lb_rule" "lb1natrule" {
    backend_port                   = 50010
    backend_address_pool_id        = azurerm_lb_backend_address_pool.bus1bepool.id
    frontend_ip_configuration_name = "PrivateIPAddress"
-   probe_id                       = azurerm_lb_probe.businesshealth1.id
+   #probe_id                       = azurerm_lb_probe.businesshealth1.id
 }
 
 #LB Created for Business Hosts 2
@@ -626,7 +626,7 @@ resource "azurerm_lb_rule" "lb2natrule" {
    backend_port                   = 50010
    backend_address_pool_id        = azurerm_lb_backend_address_pool.bus2bepool.id
    frontend_ip_configuration_name = "PrivateIPAddress"
-   probe_id                       = azurerm_lb_probe.businesshealth2.id
+   #probe_id                       = azurerm_lb_probe.businesshealth2.id
 }
 
 #BUSINESS TIER VM1 Scale Set
