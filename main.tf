@@ -725,8 +725,8 @@ resource "azurerm_virtual_machine_scale_set" "businesstier2" {
   location            = azurerm_resource_group.secondary.location
   resource_group_name = azurerm_resource_group.secondary.name
   # automatic rolling upgrade
-  automatic_os_upgrade = true
-  upgrade_policy_mode  = "Rolling"
+  automatic_os_upgrade = false
+  upgrade_policy_mode  = "Automatic"
 
   rolling_upgrade_policy {
     max_batch_instance_percent              = 20

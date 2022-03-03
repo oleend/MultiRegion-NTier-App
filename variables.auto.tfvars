@@ -80,7 +80,7 @@ vnet1sqlserver = "vnet1sqlserver"
 vnet2sqlserver = "vnet2sqlserver"
 
 #BASTION HOSTS
-bastion1_pip  = "bastion1pip"
+bastion1_pip  = "bastion1pip2"
 bastion2_pip  = "bastion2pip"
 bastion1_name = "bastionprimary"
 bastion2_name = "bastionsecondary"
