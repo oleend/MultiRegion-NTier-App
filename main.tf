@@ -658,7 +658,7 @@ resource "azurerm_virtual_machine_scale_set" "businesstier1" {
   }
 
   # required when using rolling upgrade policy
-  health_probe_id = azurerm_lb_probe.businesshealth1.id
+  #health_probe_id = azurerm_lb_probe.businesshealth1.id
 
   sku {
     name     = "Standard_B1s"
